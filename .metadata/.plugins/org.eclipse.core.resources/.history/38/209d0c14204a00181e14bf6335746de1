@@ -1,0 +1,28 @@
+package restassured;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class ApiTest {
+	@Test
+	public void apiResponse()
+	{
+		RestAssured.baseURI="http://restapi.demoqa.com/utilities/weather/city/hyderabad";
+		RequestSpecification httpReqst=RestAssured.given();
+		Response resp=httpReqst.get();
+		int code=resp.getStatusCode();
+		Assert.assertEquals(code, 200);
+		System.out.println("Response code is "+code);
+		String type=resp.getContentType();
+		String body=resp.asString();
+		System.out.println("Response type is "+type);
+		System.out.println("Response body is "+body);
+		
+		
+	}
+
+}

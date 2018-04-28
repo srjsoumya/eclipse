@@ -1,0 +1,20 @@
+package restassured;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class ApiTest {
+	@Test
+	public void apiResponse()
+	{
+		String uri="http://restapi.demoqa.com/utilities/weather/city/hyderabad";
+		Response resp=RestAssured.get(uri);
+		int code=resp.getStatusCode();
+		Assert.assertEquals(code, 200,"Correct Response");
+		
+	}
+
+}

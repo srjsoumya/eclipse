@@ -1,0 +1,88 @@
+package restassured;
+
+import org.json.simple.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class Post_Delete_PutTest {
+	@Test
+	public void deleteTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request=RestAssured.given();
+		Response response=request.delete("/10");
+		int code=response.getStatusCode();
+		Assert.assertEquals(code, 200);
+		
+	}
+	
+	@Test
+	public void postTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request= RestAssured.given();
+		request.header("content-type", "application/json");   //type of file which is transfer
+		
+		JSONObject json=new JSONObject();                    //create a json object to post a data
+		json.put("id", 10);                                 //add individual value to json object 
+		json.put("title", "ApiTesting");
+		json.put("author", "Soumya");
+		
+		request.body(json.toJSONString());					//convert jsonobject to string type
+		Response response=request.post();					//post the data to the server and get the response
+		int code=response.getStatusCode();
+		Assert.assertEquals(code, 201);	//assert the data with response code	
+	}
+			
+	@Test
+	public void putTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request=RestAssured.given();
+		request.header("content-type", "application/json");
+		
+		JSONObject json=new JSONObject();                    //create a json object to post a data
+		json.put("id", 10);                                 //add individual value to json object 
+		json.put("title", "Api automation Testing");
+		json.put("author", "Soumya");
+		
+		request.body(json.toJSONString());
+		Response response=request.put("/10");
+		
+		int code=response.getStatusCode();
+		Assert.assertEquals(code, 200);
+	}
+	
+	@Test
+	public void getTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request=RestAssured.given();
+		Response response =request.get("/10");
+		
+		int code=response.getStatusCode();
+		System.out.println("Response code is "+code);
+		
+		String type=response.getContentType();
+		System.out.println("Type of the response is "+type);
+		
+		String body=response.getBody().asString();
+		System.out.println("Body of the response is "+body);
+		
+		Response resp=request.get("/10");
+		JsonPath json=response.jsonPath();
+		System.out.println("Id is"+json.get("id"));
+		System.out.println("title is"+json.get("title"));
+		System.out.println("author is"+json.get("author"));
+		
+		
+		
+	}
+	
+
+}

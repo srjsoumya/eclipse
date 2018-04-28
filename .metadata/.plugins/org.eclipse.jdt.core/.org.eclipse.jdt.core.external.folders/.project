@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>.org.eclipse.jdt.core.external.folders</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>.link0</name>
+			<type>2</type>
+			<location>/home/soumyavaio/.eclipse/org.eclipse.platform_4.7.2_1473617060_linux_gtk_x86_64/configuration/org.eclipse.osgi/508/0/.cp</location>
+		</link>
+	</linkedResources>
+</projectDescription>

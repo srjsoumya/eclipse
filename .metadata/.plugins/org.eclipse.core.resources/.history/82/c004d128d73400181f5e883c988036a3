@@ -1,0 +1,16 @@
+package genericlibrary;
+
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class BaseClass {
+	@BeforeClass
+	public void driverControl() {
+		System.setProperty("webdriver.gecko.driver", "/home/soumyavaio/selenium/geckodriver");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+	}
+
+
+}

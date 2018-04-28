@@ -1,0 +1,33 @@
+package maven_selenium_project;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.internal.FindsByXPath;
+import org.testng.annotations.Test;
+
+public class IrctcTest {
+	public static WebDriver driver;
+	@Test
+	public void newTab()
+	{
+		System.setProperty("webdriver.gecko.driver","/home/soumyavaio/selenium/geckodriver");
+		driver=new FirefoxDriver();
+		driver.get("https://www.irctc.co.in/eticketing/loginHome.jsf");
+		Actions act=new Actions(driver);
+		WebElement tourism=driver.findElement(By.xpath("//a[text()=' Tourism  ']"));
+		act.moveToElement(tourism).perform();
+		driver.findElement(By.linkText("Cab")).click();
+		
+		Set <String> winId=driver.getWindowHandles();
+		System.out.println(winId.size());
+		
+		
+	}
+
+}

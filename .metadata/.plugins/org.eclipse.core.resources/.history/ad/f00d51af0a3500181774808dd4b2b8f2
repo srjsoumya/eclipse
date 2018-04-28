@@ -1,0 +1,54 @@
+package testscript;
+
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import genericlibrary.GenericLib;
+import objectrepository.Vanilla;
+
+public class VanillaMaster {
+	public static WebDriver driver;
+
+	/*
+	 * @BeforeClass public void driverControl() {
+	 * System.setProperty("webdriver.gecko.driver", "resource/geckodriver");
+	 * Reporter.log("Open the Browser"); driver = new FirefoxDriver();
+	 * driver.manage().window().maximize();
+	 * driver.get("https://vanilla-masker.github.io/vanilla-masker/demo.html"); }
+	 */
+
+	@Test(dataProvider = "phone")
+	public void phone(String number) {
+		System.setProperty("webdriver.gecko.driver", "resource/geckodriver");
+		Reporter.log("Open the Browser");
+		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("https://vanilla-masker.github.io/vanilla-masker/demo.html");
+		Reporter.log("Enter phone number to phone text field");
+		GenericLib lib = PageFactory.initElements(driver, GenericLib.class);
+		String expResult = lib.phoneNumber(number);
+		Vanilla van = PageFactory.initElements(driver, Vanilla.class);
+		String actResult = van.getPhone();
+		Assert.assertEquals(expResult, actResult);
+	}
+
+	@DataProvider
+	public Object[] phone() throws EncryptedDocumentException, InvalidFormatException, IOException {
+		GenericLib lib = PageFactory.initElements(driver, GenericLib.class);
+		Object[] objArr = new Object[9];
+		for (int i = 0; i < 9; i++)
+			objArr[i] = lib.getExcelData("phone", i, 0);
+		return objArr;
+	}
+
+}

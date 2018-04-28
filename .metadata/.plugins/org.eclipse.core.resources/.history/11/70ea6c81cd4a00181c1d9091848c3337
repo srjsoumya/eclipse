@@ -1,0 +1,49 @@
+package restassured;
+
+import org.json.simple.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class Post_Delete_PutTest {
+	@Test
+	public void deleteTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request=RestAssured.given();
+		Response response=request.delete("/10");
+		int code=response.getStatusCode();
+		Assert.assertEquals(code, 200);
+		
+	}
+	@Test
+	public void postTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request= RestAssured.given();
+		request.header("content-type", "application/json");   //type of file which is transfer
+		
+		JSONObject json=new JSONObject();                    //create a json object to post a data
+		json.put("id", 10);                                 //add individual value to json object 
+		json.put("title", "ApiTesting");
+		json.put("author", "Soumya");
+		
+		request.body(json.toJSONString());					//convert jsonobject to string type
+		Response response=request.post();					//post the data to the server and get the response
+		int code=response.getStatusCode();
+		Assert.assertEquals(code, 201);	//assert the data with response code	
+	}
+	
+	
+	
+	@Test
+	public void putTest()
+	{
+		
+	}
+	
+
+}

@@ -1,0 +1,46 @@
+package restassured;
+
+import org.json.simple.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class Post_Delete_PutTest {
+	@Test
+	public void postTest()
+	{
+		RestAssured.baseURI="http://localhost:3000/posts";
+		RequestSpecification request= RestAssured.given();
+		request.header("content-type", "application/json");
+		
+		JSONObject json=new JSONObject();
+		json.put("id", 10);
+		json.put("title", "ApiTesting");
+		json.put("author", "Soumya");
+		
+		request.body(json.toJSONString());
+		Response response=request.post();
+		Assert.assertEquals(response.getStatusCode(), 201);
+		
+		
+	
+		
+	}
+	
+	@Test
+	public void deleteTest()
+	{
+		
+	}
+	
+	@Test
+	public void putTest()
+	{
+		
+	}
+	
+
+}

@@ -1,0 +1,29 @@
+package restassured;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class ApiTest {
+	@Test
+	public void apiResponse()
+	{
+		RestAssured.baseURI="https://jsonplaceholder.typicode.com/comments";
+		RequestSpecification httpReqst=RestAssured.given();
+		Response resp=httpReqst.get("?email=Jayne_Kuhic@sydney.com");
+		Response response=httpReqst.get("/5");
+		int code=response.getStatusCode();
+		Assert.assertEquals(code, 200);
+		System.out.println("Response code is "+code);
+		String type=response.getContentType();
+		String body=response.asString();
+		System.out.println("Response type is "+type);
+		System.out.println("Response body is "+body);
+		
+		
+	}
+
+}
